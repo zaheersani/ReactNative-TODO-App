@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, Button, View, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [getText, setText] = useState('');
@@ -12,6 +12,12 @@ export default function App() {
       { key: Math.random().toString(), data: getText }
     ]);
     setText('');
+  }
+
+  const removeItem = (itemKey) => {
+    //var list = getList.filter(item => item.key != itemKey);
+    //setList(list);
+    setList(list => getList.filter(item => item.key != itemKey));
   }
 
   return (
@@ -34,18 +40,41 @@ export default function App() {
       </View>
       <ScrollView style={styles.scrollview}>
         {getList.map((item) =>
-          <View
-            style={styles.scrollviewItem}
+          <TouchableOpacity
             key={item.key}
+            activeOpacity={0.7}
           >
-            <Text style={styles.scrollviewText}>{item.data}</Text>
-          </View>)}
+            <View style={styles.scrollviewItem}>
+              <Text style={styles.scrollviewText}>{item.data}</Text>
+              <TouchableOpacity
+                onPress={() => removeItem(item.key)}
+              >
+                <View style={styles.crosstextcontainer}>
+                  <Text style={styles.crosstext}>X</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  crosstextcontainer: {
+    backgroundColor: 'grey',
+    borderRadius: 50,
+    padding: 5,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  crosstext: {
+    fontSize: 16,
+    color: 'red',
+    fontWeight: "bold"
+  },
   scrollviewText: {
     fontSize: 26,
     color: 'white'
@@ -54,6 +83,8 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   scrollviewItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: 'orange',
     alignSelf: "center",
     padding: 10,
