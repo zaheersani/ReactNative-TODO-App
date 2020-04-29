@@ -33,15 +33,25 @@ export default function App() {
           value={getText}
         />
 
-        <CustomButton text="New" color='red' textSize={20} textColor="white" />
+        <CustomButton
+          text="New"
+          color='red'
+          textSize={20}
+          textColor="white"
+          onPressEvent={addItem}
+        />
+
         {/* <Button
           title="Add"
           onPress={addItem}
         /> */}
+
       </View>
-      <View>
+
+      {/* <View>
         <Text style={{ fontSize: 26 }}>{getText}</Text>
-      </View>
+      </View> */}
+
       <ScrollView style={styles.scrollview}>
         {getList.map((item) =>
           <TouchableOpacity
@@ -84,6 +94,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   scrollview: {
+    paddingTop: 20,
     width: '100%'
   },
   scrollviewItem: {

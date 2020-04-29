@@ -4,7 +4,10 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 const CustomButton = (props) => {
     var btnColor = props.color != undefined ? props.color : 'blue';
     return (
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={props.onPressEvent}
+        >
             <View
                 style={{ ...styles.buttonContainer, backgroundColor: btnColor }}
             >
