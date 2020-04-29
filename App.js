@@ -7,6 +7,7 @@ export default function App() {
 
   const addItem = () => {
     console.log(getText);
+    setList([...getList, getText]);
     setText('');
   }
 
@@ -29,7 +30,7 @@ export default function App() {
         <Text style={{ fontSize: 26 }}>{getText}</Text>
       </View>
       <ScrollView>
-        {getList.map((item) => { <Text>{item}</Text> })}
+        {getList.map((item) => <Text>{item}</Text>)}
       </ScrollView>
     </View>
   );
