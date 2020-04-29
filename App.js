@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
+import CustomButton from './components/ButtonComponent';
+
 export default function App() {
   const [getText, setText] = useState('');
   const [getList, setList] = useState([]);
@@ -30,10 +32,12 @@ export default function App() {
           onChangeText={text => setText(text)}
           value={getText}
         />
-        <Button
+
+        <CustomButton text="New" />
+        {/* <Button
           title="Add"
           onPress={addItem}
-        />
+        /> */}
       </View>
       <View>
         <Text style={{ fontSize: 26 }}>{getText}</Text>
