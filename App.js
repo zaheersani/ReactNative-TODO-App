@@ -3,11 +3,14 @@ import { StyleSheet, Text, Button, View, TextInput, ScrollView } from 'react-nat
 
 export default function App() {
   const [getText, setText] = useState('');
-  const [getList, setList] = useState(['item 1', 'item 2']);
+  const [getList, setList] = useState([]);
 
   const addItem = () => {
     console.log(getText);
-    setList([...getList, getText]);
+    setList([
+      ...getList,
+      { key: Math.random().toString(), data: getText }
+    ]);
     setText('');
   }
 
@@ -31,8 +34,11 @@ export default function App() {
       </View>
       <ScrollView style={styles.scrollview}>
         {getList.map((item) =>
-          <View style={styles.scrollviewItem}>
-            <Text style={styles.scrollviewText}>{item}</Text>
+          <View
+            style={styles.scrollviewItem}
+            key={item.key}
+          >
+            <Text style={styles.scrollviewText}>{item.data}</Text>
           </View>)}
       </ScrollView>
     </View>
