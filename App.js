@@ -29,14 +29,32 @@ export default function App() {
       <View>
         <Text style={{ fontSize: 26 }}>{getText}</Text>
       </View>
-      <ScrollView>
-        {getList.map((item) => <Text>{item}</Text>)}
+      <ScrollView style={styles.scrollview}>
+        {getList.map((item) =>
+          <View style={styles.scrollviewItem}>
+            <Text style={styles.scrollviewText}>{item}</Text>
+          </View>)}
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollviewText: {
+    fontSize: 26,
+    color: 'white'
+  },
+  scrollview: {
+    width: '100%'
+  },
+  scrollviewItem: {
+    backgroundColor: 'orange',
+    alignSelf: "center",
+    padding: 10,
+    margin: 5,
+    width: '90%',
+    borderRadius: 10
+  },
   title: {
     fontSize: 64,
     color: 'lightgrey'
