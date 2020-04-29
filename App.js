@@ -33,7 +33,7 @@ export default function App() {
           value={getText}
         />
 
-        <CustomButton text="New" />
+        <CustomButton text="New" color='red' textSize={20} textColor="white" />
         {/* <Button
           title="Add"
           onPress={addItem}
