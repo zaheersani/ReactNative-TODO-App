@@ -22,6 +22,34 @@ export default function App() {
     setList(list => getList.filter(item => item.key != itemKey));
   }
 
+  const scrollView = (
+    <ScrollView style={styles.scrollview}>
+      {getList.map((item, index) =>
+        <TouchableOpacity
+          key={item.key}
+          activeOpacity={0.7}
+        >
+          <View style={styles.scrollviewItem}>
+            <Text style={styles.scrollviewText}>{index + 1}# {item.data}</Text>
+            <TouchableOpacity
+              onPress={() => removeItem(item.key)}
+            >
+              <View style={styles.crosstextcontainer}>
+                <Text style={styles.crosstext}>X</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      )}
+    </ScrollView>
+  );
+
+  const emptyScrollView = (
+    <View style={{ paddingTop: 30 }}>
+      <Text style={{ fontStyle: "italic", fontSize: 20, color: 'grey' }}>No ToDo Items! Hurray!</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>todo</Text>
@@ -48,25 +76,7 @@ export default function App() {
         /> */}
 
       </View>
-      <ScrollView style={styles.scrollview}>
-        {getList.map((item, index) =>
-          <TouchableOpacity
-            key={item.key}
-            activeOpacity={0.7}
-          >
-            <View style={styles.scrollviewItem}>
-              <Text style={styles.scrollviewText}>{index + 1}# {item.data}</Text>
-              <TouchableOpacity
-                onPress={() => removeItem(item.key)}
-              >
-                <View style={styles.crosstextcontainer}>
-                  <Text style={styles.crosstext}>X</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}
-      </ScrollView>
+      {getList.length <= 0 ? emptyScrollView : scrollView}
     </View>
   );
 }
