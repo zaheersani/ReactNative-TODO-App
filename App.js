@@ -34,32 +34,28 @@ export default function App() {
         />
 
         <CustomButton
-          text="New"
-          color='red'
-          textSize={20}
+          text="ADD"
+          textSize={16}
           textColor="white"
           onPressEvent={addItem}
+          disabled={getText.length <= 0}
         />
 
         {/* <Button
           title="Add"
           onPress={addItem}
+          disabled={getText.length <= 0}
         /> */}
 
       </View>
-
-      {/* <View>
-        <Text style={{ fontSize: 26 }}>{getText}</Text>
-      </View> */}
-
       <ScrollView style={styles.scrollview}>
-        {getList.map((item) =>
+        {getList.map((item, index) =>
           <TouchableOpacity
             key={item.key}
             activeOpacity={0.7}
           >
             <View style={styles.scrollviewItem}>
-              <Text style={styles.scrollviewText}>{item.data}</Text>
+              <Text style={styles.scrollviewText}>{index + 1}# {item.data}</Text>
               <TouchableOpacity
                 onPress={() => removeItem(item.key)}
               >
