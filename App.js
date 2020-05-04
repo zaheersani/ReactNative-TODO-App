@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity, Keyboard } from 'react-native';
 
 import CustomButton from './components/ButtonComponent';
 
+import { todoItems } from "./constants/dummyToDoList";
+
 export default function App() {
   const [getText, setText] = useState('');
-  const [getList, setList] = useState([]);
+  const [getList, setList] = useState(todoItems);
+  const [editingItem, setEditingItem] = useState(0);
 
   const addItem = () => {
     console.log(getText);
@@ -14,6 +17,7 @@ export default function App() {
       { key: Math.random().toString(), data: getText }
     ]);
     setText('');
+    Keyboard.dismiss();
   }
 
   const removeItem = (itemKey) => {
@@ -22,12 +26,28 @@ export default function App() {
     setList(list => getList.filter(item => item.key != itemKey));
   }
 
+  const editItem = (item) => {
+    setText(item.data);
+    setEditingItem(item.key);
+  }
+
+  const updateItem = () => {
+    setList(list => getList.map(item =>
+      item.key === editingItem ?
+        { key: item.key, data: getText } :
+        item
+    ));
+    setText('');
+    setEditingItem(0);
+  }
+
   const scrollView = (
     <ScrollView style={styles.scrollview}>
       {getList.map((item, index) =>
         <TouchableOpacity
           key={item.key}
           activeOpacity={0.7}
+          onPress={() => editItem(item)}
         >
           <View style={styles.scrollviewItem}>
             <Text style={styles.scrollviewText}>{index + 1}# {item.data}</Text>
@@ -52,7 +72,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>todo</Text>
+      <Text style={styles.title}>todos</Text>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -62,10 +82,10 @@ export default function App() {
         />
 
         <CustomButton
-          text="ADD"
+          text={editingItem === 0 ? "ADD" : "UPDATE"}
           textSize={16}
           textColor="white"
-          onPressEvent={addItem}
+          onPressEvent={editingItem === 0 ? addItem : updateItem}
           disabled={getText.length <= 0}
         />
 
