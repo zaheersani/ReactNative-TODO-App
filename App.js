@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity, Keyboard } from 'react-native';
+import { Alert, StyleSheet, Text, Button, View, TextInput, ScrollView, TouchableOpacity, Keyboard } from 'react-native';
 
 import CustomButton from './components/ButtonComponent';
 
 import { todoItems } from "./constants/dummyToDoList";
+
 
 export default function App() {
   const [getText, setText] = useState('');
@@ -21,9 +22,20 @@ export default function App() {
   }
 
   const removeItem = (itemKey) => {
-    //var list = getList.filter(item => item.key != itemKey);
-    //setList(list);
-    setList(list => getList.filter(item => item.key != itemKey));
+    Alert.alert(
+      `Delete "${getList.find(item => item.key == itemKey).data}" ?`,
+      "",
+      [
+        {
+          text: "No",
+          onPress: () => { }
+        },
+        {
+          text: "Yes",
+          onPress: () => setList(list => getList.filter(item => item.key != itemKey))
+        }
+      ]
+    );
   }
 
   const editItem = (item) => {
